@@ -4,7 +4,7 @@ public class World {
 
     public static void main(String[] args) {
         int counter = 0;
-        String[] move = new String[]{"f","l","b","r"};
+        String[] move = new String[]{"f","l","b","r","g","l","h","f"};
         Direction[] directions = new Direction[move.length];
         for (String argument : move){
             Direction direction = switch (argument) {
@@ -22,24 +22,17 @@ public class World {
         System.out.println("System zakończył działanie");
     }
     public static void run(Direction[] arguments){
-        int counter = 0;
-//        System.out.println("Idzie w przód");
-//        System.out.println(arguments.length);
         for (Direction argument : arguments){
-            counter ++;
-//            if (counter != arguments.length){
-//                argument += ",";
-//            }
             String message = switch (argument) {
-                case FORWARD -> "Do przodu";
-                case BACKWARD -> "Do tyłu";
-                case LEFT -> "W lewo";
-                case RIGHT -> "W prawo";
-                default -> "Nieznana komenda";
+                case FORWARD -> "Zwierzak idzie do przodu";
+                case BACKWARD -> "Zwierzak idzie do tyłu";
+                case LEFT -> "Zwierzak skręca w prawo";
+                case RIGHT -> "Zwierzak skręca w lewo";
+                default -> null;
             };
-            System.out.println(message);
-
+            if (message != null){
+                System.out.println(message);
+            }
         }
     }
-
 }
