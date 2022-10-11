@@ -3,6 +3,7 @@ package agh.ics.oop;
 public class World {
 
     public static void main(String[] args) {
+        System.out.println("LAB1:.........");
         int counter = 0;
         String[] move = new String[]{"f","l","b","r","g","l","h","f"};
         Direction[] directions = new Direction[move.length];
@@ -20,6 +21,12 @@ public class World {
         System.out.println("System wystartował");
         run(directions);
         System.out.println("System zakończył działanie");
+        System.out.println("LAB2:.........");
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
     }
     public static void run(Direction[] arguments){
         for (Direction argument : arguments){
