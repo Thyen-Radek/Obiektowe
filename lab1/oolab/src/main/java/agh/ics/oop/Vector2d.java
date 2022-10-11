@@ -8,10 +8,10 @@ public class Vector2d {
         this.y = y;
     }
 
-//    @Override
-//    public String toString() {
-//        return "(" + x + "," + y + ')';
-//    }
+    @Override
+    public String toString() {
+        return "(" + x + "," + y + ')';
+    }
     boolean precedes(Vector2d other){
         return this.x <= other.x && this.y <= other.y;
     }
