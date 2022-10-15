@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="agh.ics.oop.MapDirectionTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-15T18:00:40" hostname="MacBook-Pro-Radek.local" time="0.053">
+  <properties/>
+  <testcase name="_previous()" classname="agh.ics.oop.MapDirectionTest" time="0.046"/>
+  <testcase name="_next()" classname="agh.ics.oop.MapDirectionTest" time="0.004"/>
+  <system-out><![CDATA[----Test metody previous----
+----Test metody next----
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
