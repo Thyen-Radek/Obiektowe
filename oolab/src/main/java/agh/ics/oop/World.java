@@ -7,13 +7,12 @@ public class World {
         String[] move = new String[]{"f","l","b","r","g","l","h","f"};
         Direction[] send = getArray(move);
         run(send);
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
         System.out.println("System zakończył działanie");
-//        System.out.println("LAB2:.........");
-//        Vector2d position1 = new Vector2d(1,2);
-//        System.out.println(position1);
-//        Vector2d position2 = new Vector2d(-2,1);
-//        System.out.println(position2);
-//        System.out.println(position1.add(position2));
     }
     public static Direction[] getArray(String[] array){
         int counter = 0;
