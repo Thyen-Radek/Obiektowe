@@ -3,11 +3,9 @@ package agh.ics.oop;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Map;
-
 public class MapDirectionTest {
     @Test
-    public void _next(){
+    void _next(){
         System.out.println("----Test metody next----");
         MapDirection[] directions = new MapDirection[]{MapDirection.EAST,MapDirection.SOUTH,MapDirection.WEST,MapDirection.NORTH};
         MapDirection direct = MapDirection.NORTH;
@@ -18,7 +16,7 @@ public class MapDirectionTest {
 
     }
     @Test
-    public void _previous(){
+    void _previous(){
         System.out.println("----Test metody previous----");
         MapDirection[] directions = new MapDirection[]{MapDirection.WEST,MapDirection.SOUTH,MapDirection.EAST,MapDirection.NORTH};
         MapDirection direct = MapDirection.NORTH;

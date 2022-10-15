@@ -4,89 +4,102 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class Vector2dTest {
+    String str = "test";
+    Vector2d[] v = new Vector2d[]{
+            new Vector2d(1,2),
+            new Vector2d(3,5),
+            new Vector2d(-3,1),
+            new Vector2d(1,2)
+    };
     @Test
-    public void _equals(){
+    void _equals(){
         System.out.println("----Test metody equals----");
-        Vector2d vec1 = new Vector2d(1,1);
-        Vector2d vec2 = new Vector2d(1,1);
-        Vector2d vec3 = new Vector2d(2,7);
-        MapDirection dire = MapDirection.NORTH;
-        Assertions.assertTrue(vec1.equals(vec1));
-        Assertions.assertFalse(vec1.equals(dire));
-        Assertions.assertTrue(vec1.equals(vec2));
-        Assertions.assertFalse(vec1.equals(vec3));
+        Assertions.assertTrue(v[0].equals(v[0]));
+        Assertions.assertFalse(v[0].equals(str));
+        Assertions.assertFalse(v[0].equals(v[1]));
+        Assertions.assertFalse(v[0].equals(v[2]));
+        Assertions.assertTrue(v[0].equals(v[3]));
     }
     @Test
-    public void _toString() {
+    void _toString() {
         System.out.println("----Test metody toString----");
-        Vector2d vec1 = new Vector2d(1,1);
-        String name = vec1.toString();
-        Assertions.assertEquals(name,"(1,1)");
+        for (Vector2d vector2d : v) {
+            Assertions.assertEquals(vector2d.toString(), "(" + vector2d.x + "," + vector2d.y + ")");
+        }
+
     }
     @Test
-    public void _precedes(){
+    void _precedes(){
         System.out.println("----Test metody precedes----");
-        Vector2d vec1 = new Vector2d(1,1);
-        Vector2d vec2 = new Vector2d(2,2);
-        Vector2d vec3 = new Vector2d(1,3);
-        Assertions.assertTrue(vec1.precedes(vec2));
-        Assertions.assertTrue(vec1.precedes(vec3));
-        Assertions.assertFalse(vec3.precedes(vec2));
-        Assertions.assertFalse(vec2.precedes(vec3));
+        for(int i = 0; i < v.length-1; i++) {
+            if (v[i].x <= v[i+1].x && v[i].y <= v[i+1].y) {
+                Assertions.assertTrue(v[i].precedes(v[i+1]));
+            }
+            else{
+                Assertions.assertFalse(v[i].precedes(v[i+1]));
+            }
+        }
     }
     @Test
-    public void _follows(){
+    void _follows(){
         System.out.println("----Test metody follows----");
-        Vector2d vec1 = new Vector2d(7,7);
-        Vector2d vec2 = new Vector2d(2,5);
-        Vector2d vec3 = new Vector2d(4,1);
-        Assertions.assertTrue(vec1.follows(vec2));
-        Assertions.assertTrue(vec1.follows(vec3));
-        Assertions.assertFalse(vec3.follows(vec2));
-        Assertions.assertFalse(vec2.follows(vec3));
+        for(int i = 0; i < v.length-1; i++) {
+            if (v[i].x >= v[i+1].x && v[i].y >= v[i+1].y) {
+                Assertions.assertTrue(v[i].follows(v[i+1]));
+            }
+            else{
+                Assertions.assertFalse(v[i].follows(v[i+1]));
+            }
+        }
     }
     @Test
-    public void _upperRight(){
+    void _upperRight(){
         System.out.println("----Test metody upperRight----");
-        Vector2d vec1 = new Vector2d(1,7);
-        Vector2d vec2 = new Vector2d(4,5);
-        Vector2d vec_combined = vec1.upperRight(vec2);
-        Assertions.assertEquals(vec_combined.x , 4);
-        Assertions.assertEquals(vec_combined.y , 7);
+        int x,y;
+        for(int i = 0; i < v.length-1; i++) {
+            x = Math.max(v[i].x,v[i+1].x);
+            y = Math.max(v[i].y,v[i+1].y);
+            Assertions.assertEquals(v[i].upperRight(v[i+1]),new Vector2d(x,y));
+        }
     }
     @Test
-    public void _lowerLeft(){
+    void _lowerLeft(){
         System.out.println("----Test metody lowerLeft----");
-        Vector2d vec1 = new Vector2d(1,7);
-        Vector2d vec2 = new Vector2d(4,5);
-        Vector2d vec_combined = vec1.lowerLeft(vec2);
-        Assertions.assertEquals(vec_combined.x , 1);
-        Assertions.assertEquals(vec_combined.y , 5);
+        int x,y;
+        for(int i = 0; i < v.length-1; i++) {
+            x = Math.min(v[i].x,v[i+1].x);
+            y = Math.min(v[i].y,v[i+1].y);
+            Assertions.assertEquals(v[i].lowerLeft(v[i+1]),new Vector2d(x,y));
+        }
     }
     @Test
-    public void _add(){
+    void _add(){
         System.out.println("----Test metody add----");
-        Vector2d vec1 = new Vector2d(1,7);
-        Vector2d vec2 = new Vector2d(4,5);
-        Vector2d vec_combined = vec1.add(vec2);
-        Assertions.assertEquals(vec_combined.x , 5);
-        Assertions.assertEquals(vec_combined.y , 12);
+        int x,y;
+        for(int i = 0; i < v.length-1; i++) {
+            x = v[i].x + v[i+1].x;
+            y = v[i].y + v[i+1].y;
+            Assertions.assertEquals(v[i].add(v[i+1]),new Vector2d(x,y));
+        }
     }
     @Test
-    public void _subtract(){
+    void _subtract(){
         System.out.println("----Test metody subtract----");
-        Vector2d vec1 = new Vector2d(1,7);
-        Vector2d vec2 = new Vector2d(4,5);
-        Vector2d vec_combined = vec1.subtract(vec2);
-        Assertions.assertEquals(vec_combined.x , -3);
-        Assertions.assertEquals(vec_combined.y , 2);
+        int x,y;
+        for(int i = 0; i < v.length-1; i++) {
+            x = v[i].x - v[i+1].x;
+            y = v[i].y - v[i+1].y;
+            Assertions.assertEquals(v[i].subtract(v[i+1]),new Vector2d(x,y));
+        }
     }
     @Test
-    public void _opposite(){
+    void _opposite(){
         System.out.println("----Test metody opposite----");
-        Vector2d vec1 = new Vector2d(3,7);
-        Vector2d vec_combined = vec1.opposite();
-        Assertions.assertEquals(vec_combined.x , 7);
-        Assertions.assertEquals(vec_combined.y , 3);
+        int x,y;
+        for(int i = 0; i < v.length-1; i++) {
+            x = -v[i].x;
+            y = -v[i].y;
+            Assertions.assertEquals(v[i].opposite(),new Vector2d(x,y));
+        }
     }
 }
