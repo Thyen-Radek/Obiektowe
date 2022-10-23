@@ -1,7 +1,9 @@
 package agh.ics.oop;
 import java.util.Arrays;
 public class World {
-
+    // Komentarz do zadania 10:
+    // Można użyć metody isAt w klasie Animal do sprawdzania pozycji między dwoma zwierzakami
+    // W przypadku gdy jest ich wiecej należałoby utworzyć mapę z pozycjami zwierzaków.
     public static void main(String[] args) {
         System.out.println("System wystartował");
         OptionsParser parsing = new OptionsParser();
