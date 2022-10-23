@@ -5,7 +5,7 @@ public enum MapDirection {
     SOUTH,
     EAST,
     WEST;
-
+    @Override
     public String toString(){
         return switch (this) {
             case NORTH -> "Północ";

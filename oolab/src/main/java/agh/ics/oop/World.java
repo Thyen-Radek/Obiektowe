@@ -4,50 +4,31 @@ public class World {
 
     public static void main(String[] args) {
         System.out.println("System wystartował");
-        String[] move = new String[]{"f","l","b","r","g","l","h","f"};
-        Direction[] send = getArray(move);
-        run(send);
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
+        OptionsParser parsing = new OptionsParser();
+        String[] move = new String[]{"f","f","b","r","g","f","h","f","f"};
+        Animal animal = new Animal();
+        System.out.println("Startowa pozycja");
+        System.out.println(animal);
+        MoveDirection[] send = parsing.parse(move);
+//        animal.move(MoveDirection.RIGHT);
+//        animal.move(MoveDirection.FORWARD);
+//        animal.move(MoveDirection.FORWARD);
+//        animal.move(MoveDirection.FORWARD);
+//        System.out.println(animal);
+        run(send,animal);
         System.out.println("System zakończył działanie");
     }
-    public static Direction[] getArray(String[] array){
-        int counter = 0;
-        Direction[] directions = new Direction[array.length];
-        for (String argument : array){
-            switch (argument) {
-                case "f" -> {
-                    directions[counter] = Direction.FORWARD;
-                    counter++;
-                }
-                case "b" -> {
-                    directions[counter] = Direction.BACKWARD;
-                    counter++;
-                }
-                case "l" -> {
-                    directions[counter] = Direction.LEFT;
-                    counter++;
-                }
-                case "r" -> {
-                    directions[counter] = Direction.RIGHT;
-                    counter++;
-                }
-            }
-        }
-        return Arrays.copyOfRange(directions, 0, counter);
-    }
-    public static void run(Direction[] arguments){
-        for (Direction argument : arguments){
+    public static void run(MoveDirection[] arguments,Animal animal){
+        for (MoveDirection argument : arguments){
             String message = switch (argument) {
                 case FORWARD -> "Zwierzak idzie do przodu";
-                case BACKWARD -> "Zwierzak idzie do tyłu";
-                case LEFT -> "Zwierzak skręca w prawo";
-                case RIGHT -> "Zwierzak skręca w lewo";
+                case BACKWARD -> "Zwierzak idzie do tyłu" ;
+                case RIGHT -> "Zwierzak skręca w prawo" ;
+                case LEFT -> "Zwierzak skręca w lewo";
             };
+            animal.move(argument);
             System.out.println(message);
+            System.out.println(animal);
         }
     }
 }
