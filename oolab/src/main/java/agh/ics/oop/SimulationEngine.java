@@ -14,11 +14,9 @@ public class SimulationEngine implements IEngine{
             Animal animal = new Animal(this.map, positions[i]);
             check = this.map.place(animal);
             if (check){
-                this.animals[i] = animal;
-                animals_count += 1;
+                this.animals[this.animals_count] = animal;
+                this.animals_count += 1;
             }
-
-
         }
     }
     @Override
