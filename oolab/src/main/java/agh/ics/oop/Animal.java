@@ -3,15 +3,21 @@ package agh.ics.oop;
 import java.util.Map;
 
 public class Animal {
+    private final IWorldMap map;
     private MapDirection direction = MapDirection.NORTH;
-    private Vector2d position = new Vector2d(2,2);
-
+    private Vector2d position;
+    public Animal(IWorldMap map,Vector2d initialPosition){
+        this.map = map;
+        this.position = initialPosition;
+    }
     @Override
     public String toString() {
-        return "Animal{" +
-                "direction=" + direction +
-                ", position=" + position +
-                '}';
+        return switch(direction){
+            case NORTH -> "N";
+            case SOUTH -> "S";
+            case EAST -> "E";
+            case WEST -> "W";
+        };
     }
     public boolean isAt(Vector2d position){
         return this.position.equals(position);
@@ -24,13 +30,13 @@ public class Animal {
             case LEFT -> this.direction = dir.previous();
             case FORWARD -> {
                 Vector2d temp = pos.add(dir.toUnitVector());
-                if(temp.x <= 4 && temp.y <= 4 && temp.x >= 0 && temp.y >= 0) {
+                if(this.map.canMoveTo(temp)){
                     this.position = temp;
                 }
             }
             case BACKWARD -> {
                 Vector2d temp = pos.add(dir.toUnitVector().opposite());
-                if(temp.x <= 4 && temp.y <= 4 && temp.x >= 0 && temp.y >= 0) {
+                if(this.map.canMoveTo(temp)){
                     this.position = temp;
                 }
             }

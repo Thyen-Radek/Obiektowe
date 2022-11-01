@@ -1,23 +1,15 @@
 package agh.ics.oop;
 import java.util.Arrays;
 public class World {
-    // Komentarz do zadania 10:
-    // Można użyć metody isAt w klasie Animal do sprawdzania pozycji między dwoma zwierzakami
-    // W przypadku gdy jest ich wiecej należałoby utworzyć mapę z pozycjami zwierzaków.
     public static void main(String[] args) {
         System.out.println("System wystartował");
-        OptionsParser parsing = new OptionsParser();
-        String[] move = new String[]{"f","f","b","r","g","f","h","f","f"};
-        Animal animal = new Animal();
-        System.out.println("Startowa pozycja");
-        System.out.println(animal);
-        MoveDirection[] send = parsing.parse(move);
-//        animal.move(MoveDirection.RIGHT);
-//        animal.move(MoveDirection.FORWARD);
-//        animal.move(MoveDirection.FORWARD);
-//        animal.move(MoveDirection.FORWARD);
-//        System.out.println(animal);
-        run(send,animal);
+        String[] move = new String[]{"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
+        MoveDirection[] directions = new OptionsParser().parse(move);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
+        System.out.println(map.toString());
         System.out.println("System zakończył działanie");
     }
     public static void run(MoveDirection[] arguments,Animal animal){

@@ -4,11 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class AnimalTest {
+    private final IWorldMap map = new RectangularMap(4, 4);
     private final OptionsParser parser = new OptionsParser();
-    private final Animal test_animal1 = new Animal();
-    private final Animal test_animal2 = new Animal();
-    private final Animal test_animal3 = new Animal();
-    private final Animal test_animal4 = new Animal();
+    private final Animal test_animal1 = new Animal(map,new Vector2d(2,2));
+    private final Animal test_animal2 = new Animal(map,new Vector2d(2,2));
+    private final Animal test_animal3 = new Animal(map,new Vector2d(2,2));
+    private final Animal test_animal4 = new Animal(map,new Vector2d(2,2));
     @Test
     void move_orientation(){
         //Utworzyłem metode getDirection aby pobierać informacje o orientacji (tylko odczyt)
