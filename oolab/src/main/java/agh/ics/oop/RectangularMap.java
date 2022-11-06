@@ -3,15 +3,13 @@ package agh.ics.oop;
 public class RectangularMap extends AbstractWorldMap {
     private final int width;
     private final int height;
-//    private final MapVisualizer Visualize = new MapVisualizer(this);
     public RectangularMap(int width,int height){
         this.width = width;
         this.height = height;
     }
-
     @Override
     public String toString() {
-        return this.Visualize.draw(new Vector2d(0,0),new Vector2d(this.width,this.height));
+        return this.visualize.draw(new Vector2d(0,0),new Vector2d(this.width,this.height));
     }
 
     @Override

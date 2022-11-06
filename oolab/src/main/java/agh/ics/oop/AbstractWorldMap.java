@@ -6,10 +6,11 @@ import java.util.List;
 abstract class AbstractWorldMap implements IWorldMap {
     protected List<Animal> animals = new ArrayList<>();
     protected List<Grass> grasses = new ArrayList<>();
-    protected final MapVisualizer Visualize = new MapVisualizer(this);
+    protected List<IMapElement> mapElements = new ArrayList<>();
+    protected final MapVisualizer visualize = new MapVisualizer(this);
     @Override
     public String toString() {
-        return this.Visualize.draw(new Vector2d(0,0),new Vector2d(10,10));
+        return this.visualize.draw(new Vector2d(0,0),new Vector2d(10,10));
     }
 
     @Override
@@ -30,13 +31,14 @@ abstract class AbstractWorldMap implements IWorldMap {
             }
         }
         this.animals.add(animal);
+        this.mapElements.add(animal);
         return true;
     }
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        for (Animal animal : this.animals) {
-            if (animal.isAt(position)) {
+        for (int i = this.mapElements.size(); i-- > 0; ) {
+            if(this.mapElements.get(i).isAt(position)){
                 return true;
             }
         }
@@ -45,14 +47,14 @@ abstract class AbstractWorldMap implements IWorldMap {
 
     @Override
     public Object objectAt(Vector2d position) {
-        for (Animal animal : this.animals) {
-            if (animal.isAt(position)) {
-                return animal;
+        for (int i = this.mapElements.size(); i-- > 0; ) {
+            if(this.mapElements.get(i).isAt(position)){
+                return this.mapElements.get(i);
             }
         }
         return null;
     }
     public List<Animal> getArray(){
-        return animals;
+        return this.animals;
     }
 }

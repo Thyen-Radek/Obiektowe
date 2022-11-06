@@ -3,30 +3,27 @@ import java.lang.Math;
 public class GrassField extends AbstractWorldMap {
     private final int rangex;
     private final int rangey;
-//    private final MapVisualizer Visualize = new MapVisualizer(this);
+
     public GrassField(int grass){
         this.rangex = (int)Math.sqrt(grass*10);
         this.rangey = (int)Math.sqrt(grass*10);
         for (int i = 0; i < grass; i++){
             int randx = (int)(Math.random()*(this.rangex+1));
             int randy = (int)(Math.random()*(this.rangey+1));
-            this.grasses.add(new Grass(new Vector2d(randx,randy)));
+            Grass trawka = new Grass(new Vector2d(randx,randy));
+            this.grasses.add(trawka);
+            this.mapElements.add(trawka);
         }
     }
     @Override
     public String toString() {
         Vector2d vectorR = new Vector2d(0,0);
         Vector2d vectorL = new Vector2d(0,0);
-        for (Grass grass : this.grasses) {
-            vectorR = vectorR.upperRight(grass.getPosition());
-            vectorL = vectorL.lowerLeft(grass.getPosition());
+        for (IMapElement element : this.mapElements) {
+            vectorR = vectorR.upperRight(element.getPosition());
+            vectorL = vectorL.lowerLeft(element.getPosition());
         }
-        for (Animal animal : this.animals) {
-            vectorR = vectorR.upperRight(animal.getPosition());
-            vectorL = vectorL.lowerLeft(animal.getPosition());
-        }
-        return this.Visualize.draw(vectorL,vectorR);
-
+        return this.visualize.draw(vectorL,vectorR);
     }
 
     @Override
@@ -41,29 +38,11 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        boolean occup = super.isOccupied(position);
-        if(occup){
-            return occup;
-        }
-        for (Grass grass : this.grasses) {
-            if (grass.getPosition().equals(position)) {
-                return true;
-            }
-        }
-        return false;
+        return super.isOccupied(position);
     }
 
     @Override
     public Object objectAt(Vector2d position) {
-        Object object =  super.objectAt(position);
-        if(object != null){
-            return object;
-        }
-        for (Grass grass : this.grasses) {
-            if (grass.getPosition().equals(position)) {
-                return grass;
-            }
-        }
-        return null;
+        return super.objectAt(position);
     }
 }
