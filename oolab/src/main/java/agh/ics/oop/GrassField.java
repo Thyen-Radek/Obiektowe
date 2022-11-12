@@ -1,9 +1,6 @@
 package agh.ics.oop;
 import java.lang.Math;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
 public class GrassField extends AbstractWorldMap {
     private final int rangex;
@@ -16,8 +13,6 @@ public class GrassField extends AbstractWorldMap {
             int randx = (int)(Math.random()*(this.rangex+1));
             int randy = (int)(Math.random()*(this.rangey+1));
             Grass trawka = new Grass(new Vector2d(randx,randy));
-            this.grasses.add(trawka);
-            this.mapElements.add(trawka);
             this.grasses_map.put(trawka.getPosition(),trawka);
         }
     }
@@ -26,7 +21,7 @@ public class GrassField extends AbstractWorldMap {
         Set<Vector2d> animals_set = this.animals_map.keySet();
         Set<Vector2d> grasses_set = this.grasses_map.keySet();
         Vector2d vectorR = new Vector2d(0,0);
-        Vector2d vectorL = new Vector2d(0,0);
+        Vector2d vectorL = new Vector2d(10,10);
         for (Vector2d vector : animals_set) {
             vectorR = vectorR.upperRight(vector);
             vectorL = vectorL.lowerLeft(vector);

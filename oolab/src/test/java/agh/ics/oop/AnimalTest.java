@@ -45,7 +45,7 @@ public class AnimalTest {
         for (MoveDirection move : moves_3){
             test_animal3.move(move);
         }
-        Assertions.assertTrue(test_animal3.isAt(new Vector2d(4,0)));
+        Assertions.assertTrue(test_animal3.isAt(new Vector2d(3,0)));
     }
     @Test
     void move_out(){
@@ -54,13 +54,13 @@ public class AnimalTest {
         for (MoveDirection move : moves_1){
             test_animal1.move(move);
         }
-        Assertions.assertTrue(test_animal1.isAt(new Vector2d(2,4)));
+        Assertions.assertTrue(test_animal1.isAt(new Vector2d(2,3)));
         String[] array_2 = new String[]{"r","f","f","f","f"};
         MoveDirection[] moves_2 = parser.parse(array_2);
         for (MoveDirection move : moves_2){
             test_animal2.move(move);
         }
-        Assertions.assertTrue(test_animal2.isAt(new Vector2d(4,2)));
+        Assertions.assertTrue(test_animal2.isAt(new Vector2d(3,2)));
         String[] array_3 = new String[]{"b","b","b","b"};
         MoveDirection[] moves_3 = parser.parse(array_3);
         for (MoveDirection move : moves_3){

@@ -1,8 +1,5 @@
 package agh.ics.oop;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class World {
     public static void main(String[] args) {
         System.out.println("System wystartował");

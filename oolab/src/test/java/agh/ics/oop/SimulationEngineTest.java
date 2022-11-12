@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 public class SimulationEngineTest {
     private final Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
-    private final Vector2d[] positions2 = { new Vector2d(2,2), new Vector2d(3,4),new Vector2d(5,2) };
+    private final Vector2d[] positions2 = { new Vector2d(2,2), new Vector2d(3,4),new Vector2d(4,2) };
     @Test
     void _run1(){
         String[] move1 = new String[]{"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
@@ -12,7 +12,7 @@ public class SimulationEngineTest {
         AbstractWorldMap map = new RectangularMap(10, 5);
         IEngine engine = new SimulationEngine(directions1, map, positions);
         engine.run();
-        Assertions.assertTrue(map.isOccupied(new Vector2d(3,5)));
+        Assertions.assertTrue(map.isOccupied(new Vector2d(3,4)));
         Assertions.assertTrue(map.isOccupied(new Vector2d(2,0)));
     }
     @Test
@@ -32,8 +32,9 @@ public class SimulationEngineTest {
         AbstractWorldMap map = new RectangularMap(10, 5);
         IEngine engine = new SimulationEngine(directions3, map, positions2);
         engine.run();
-        Assertions.assertTrue(map.isOccupied(new Vector2d(2,5)));
-        Assertions.assertTrue(map.isOccupied(new Vector2d(0,4)));
-        Assertions.assertTrue(map.isOccupied(new Vector2d(10,2)));
+        System.out.println(map.toString());
+        Assertions.assertTrue(map.isOccupied(new Vector2d(2,4)));
+        Assertions.assertTrue(map.isOccupied(new Vector2d(3,4)));
+        Assertions.assertTrue(map.isOccupied(new Vector2d(9,2)));
     }
 }

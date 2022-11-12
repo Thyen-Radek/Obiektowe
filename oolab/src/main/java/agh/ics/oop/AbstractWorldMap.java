@@ -7,8 +7,6 @@ import java.util.Map;
 
 abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver {
     protected List<Animal> animals = new ArrayList<>();
-    protected List<Grass> grasses = new ArrayList<>();
-    protected List<IMapElement> mapElements = new ArrayList<>();
     protected final MapVisualizer visualize = new MapVisualizer(this);
     protected Map<Vector2d, Animal> animals_map = new HashMap<>();
     protected Map<Vector2d, Grass> grasses_map = new HashMap<>();
@@ -29,7 +27,6 @@ abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver {
         }
         this.animals.add(animal);
         this.animals_map.put(animal.getPosition(),animal);
-        this.mapElements.add(animal);
         return true;
     }
 
