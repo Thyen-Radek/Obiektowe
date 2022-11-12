@@ -1,5 +1,10 @@
 package agh.ics.oop;
 import java.lang.Math;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
 public class GrassField extends AbstractWorldMap {
     private final int rangex;
     private final int rangey;
@@ -13,15 +18,22 @@ public class GrassField extends AbstractWorldMap {
             Grass trawka = new Grass(new Vector2d(randx,randy));
             this.grasses.add(trawka);
             this.mapElements.add(trawka);
+            this.grasses_map.put(trawka.getPosition(),trawka);
         }
     }
     @Override
     public String toString() {
+        Set<Vector2d> animals_set = this.animals_map.keySet();
+        Set<Vector2d> grasses_set = this.grasses_map.keySet();
         Vector2d vectorR = new Vector2d(0,0);
         Vector2d vectorL = new Vector2d(0,0);
-        for (IMapElement element : this.mapElements) {
-            vectorR = vectorR.upperRight(element.getPosition());
-            vectorL = vectorL.lowerLeft(element.getPosition());
+        for (Vector2d vector : animals_set) {
+            vectorR = vectorR.upperRight(vector);
+            vectorL = vectorL.lowerLeft(vector);
+        }
+        for (Vector2d vector : grasses_set) {
+            vectorR = vectorR.upperRight(vector);
+            vectorL = vectorL.lowerLeft(vector);
         }
         return this.visualize.draw(vectorL,vectorR);
     }

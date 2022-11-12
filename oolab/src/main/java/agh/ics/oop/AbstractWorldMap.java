@@ -1,13 +1,17 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-abstract class AbstractWorldMap implements IWorldMap {
+abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver {
     protected List<Animal> animals = new ArrayList<>();
     protected List<Grass> grasses = new ArrayList<>();
     protected List<IMapElement> mapElements = new ArrayList<>();
     protected final MapVisualizer visualize = new MapVisualizer(this);
+    protected Map<Vector2d, Animal> animals_map = new HashMap<>();
+    protected Map<Vector2d, Grass> grasses_map = new HashMap<>();
     @Override
     public String toString() {
         return this.visualize.draw(new Vector2d(0,0),new Vector2d(10,10));
@@ -15,46 +19,42 @@ abstract class AbstractWorldMap implements IWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        for (Animal animal : this.animals) {
-            if (animal.isAt(position)) {
-                return false;
-            }
-        }
-        return true;
+        return this.animals_map.get(position) == null;
     }
 
     @Override
     public boolean place(Animal animal) {
-        for (Animal value : this.animals) {
-            if (value.isAt(animal.getPosition())) {
-                return false;
-            }
+        if(this.animals_map.get(animal.getPosition()) != null){
+            return false;
         }
         this.animals.add(animal);
+        this.animals_map.put(animal.getPosition(),animal);
         this.mapElements.add(animal);
         return true;
     }
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        for (int i = this.mapElements.size(); i-- > 0; ) {
-            if(this.mapElements.get(i).isAt(position)){
-                return true;
-            }
-        }
-        return false;
+        return this.animals_map.get(position) != null || this.grasses_map.get(position) != null;
     }
 
     @Override
     public Object objectAt(Vector2d position) {
-        for (int i = this.mapElements.size(); i-- > 0; ) {
-            if(this.mapElements.get(i).isAt(position)){
-                return this.mapElements.get(i);
-            }
+        if(this.animals_map.get(position) != null){
+            return this.animals_map.get(position);
+        }
+        if(this.grasses_map.get(position) != null){
+            return this.grasses_map.get(position);
         }
         return null;
     }
     public List<Animal> getArray(){
         return this.animals;
+    }
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        Animal animal = this.animals_map.get(oldPosition);
+        this.animals_map.remove(oldPosition);
+        this.animals_map.put(newPosition,animal);
     }
 }
