@@ -9,12 +9,12 @@ public class RectangularMap extends AbstractWorldMap {
     }
     @Override
     public String toString() {
-        return this.visualize.draw(new Vector2d(0,0),new Vector2d(this.width-1,this.height-1));
+        return this.visualize.draw(new Vector2d(0,0),new Vector2d(this.width,this.height));
     }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if(position.x < this.width && position.y < this.height && position.x >= 0 && position.y >= 0) {
+        if(position.x <= this.width && position.y <= this.height && position.x >= 0 && position.y >= 0) {
             return super.canMoveTo(position);
         }
         return false;
@@ -23,7 +23,7 @@ public class RectangularMap extends AbstractWorldMap {
     @Override
     public boolean place(Animal animal) {
         Vector2d position = animal.getPosition();
-        if(position.x < this.width && position.y < this.height && position.x >= 0 && position.y >= 0) {
+        if(position.x <= this.width && position.y <= this.height && position.x >= 0 && position.y >= 0) {
             return super.place(animal);
         }
         return false;
