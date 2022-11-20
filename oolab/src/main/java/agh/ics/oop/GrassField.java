@@ -12,24 +12,21 @@ public class GrassField extends AbstractWorldMap {
         for (int i = 0; i < grass; i++){
             int randx = (int)(Math.random()*(this.rangex+1));
             int randy = (int)(Math.random()*(this.rangey+1));
-            Grass trawka = new Grass(new Vector2d(randx,randy));
-            this.grasses_map.put(trawka.getPosition(),trawka);
+            Vector2d v = new Vector2d(randx,randy);
+            Grass trawka = new Grass(v);
+            this.grasses_map.put(v,trawka);
+            this.bound.put(trawka);
         }
     }
     @Override
     public String toString() {
-        Set<Vector2d> animals_set = this.animals_map.keySet();
-        Set<Vector2d> grasses_set = this.grasses_map.keySet();
-        Vector2d vectorR = new Vector2d(0,0);
-        Vector2d vectorL = new Vector2d(10,10);
-        for (Vector2d vector : animals_set) {
-            vectorR = vectorR.upperRight(vector);
-            vectorL = vectorL.lowerLeft(vector);
-        }
-        for (Vector2d vector : grasses_set) {
-            vectorR = vectorR.upperRight(vector);
-            vectorL = vectorL.lowerLeft(vector);
-        }
+        this.bound.sortowanko();
+        int x = this.bound.X_el.get(0).getPosition().x;
+        int y = this.bound.Y_el.get(0).getPosition().y;
+        Vector2d vectorL = new Vector2d(x,y);
+        x = this.bound.X_el.get(this.bound.X_el.size()-1).getPosition().x;
+        y = this.bound.Y_el.get(this.bound.Y_el.size()-1).getPosition().y;
+        Vector2d vectorR = new Vector2d(x,y);
         return this.visualize.draw(vectorL,vectorR);
     }
 
@@ -42,12 +39,10 @@ public class GrassField extends AbstractWorldMap {
     public boolean place(Animal animal) {
         return super.place(animal);
     }
-
     @Override
     public boolean isOccupied(Vector2d position) {
         return super.isOccupied(position);
     }
-
     @Override
     public Object objectAt(Vector2d position) {
         return super.objectAt(position);

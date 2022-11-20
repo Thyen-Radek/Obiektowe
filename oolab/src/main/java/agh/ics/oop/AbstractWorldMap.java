@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver {
+public abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver {
     protected List<Animal> animals = new ArrayList<>();
     protected final MapVisualizer visualize = new MapVisualizer(this);
     protected Map<Vector2d, Animal> animals_map = new HashMap<>();
     protected Map<Vector2d, Grass> grasses_map = new HashMap<>();
+    protected MapBoundary bound = new MapBoundary();
     @Override
     public String toString() {
         return this.visualize.draw(new Vector2d(0,0),new Vector2d(10,10));
@@ -22,10 +23,12 @@ abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver {
 
     @Override
     public boolean place(Animal animal) {
-        if(this.animals_map.get(animal.getPosition()) != null){
-            return false;
+        Animal anim = this.animals_map.get(animal.getPosition());
+        if(anim != null){
+            throw new IllegalArgumentException("Position taken by animal on: " + anim.getPosition().toString());
         }
         this.animals.add(animal);
+        this.bound.put(animal);
         this.animals_map.put(animal.getPosition(),animal);
         return true;
     }
@@ -48,6 +51,7 @@ abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver {
     public List<Animal> getArray(){
         return this.animals;
     }
+    public MapBoundary getBound(){ return this.bound; }
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
         Animal animal = this.animals_map.get(oldPosition);

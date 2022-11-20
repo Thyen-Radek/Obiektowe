@@ -49,4 +49,5 @@ public interface IWorldMap {
     Object objectAt(Vector2d position);
 
     List<Animal> getArray();
+    MapBoundary getBound();
 }
