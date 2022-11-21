@@ -9,8 +9,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
 import java.util.List;
 
 public class App extends Application {
