@@ -21,6 +21,10 @@ public class GrassField extends AbstractWorldMap {
     @Override
     public String toString() {
         this.bound.sortowanko();
+//        System.out.println("XD");
+//        for (AbstractWorldMapElement el: this.bound.X_el){
+//            System.out.println(el.getPosition());
+//        }
         int x = this.bound.X_el.get(0).getPosition().x;
         int y = this.bound.Y_el.get(0).getPosition().y;
         Vector2d vectorL = new Vector2d(x,y);
