@@ -7,11 +7,10 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -28,23 +27,37 @@ public class App extends Application implements IPositionChangeObserver {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.grid.setGridLinesVisible(true);
+        this.grid.setAlignment(Pos.BASELINE_CENTER);
         int moveDelay = 300;
-        Scene scene = new Scene(grid, 500, 600);
+        Button btn = new Button();
+        btn.setText("Start");
+        final TextField textField = new TextField();
+        HBox hBox = new HBox(10);
+        hBox.getChildren().add(textField);
+        hBox.getChildren().add(btn);
+        hBox.setAlignment(Pos.BASELINE_CENTER);
+        VBox vBox = new VBox(20);
+        vBox.getChildren().add(grid);
+        vBox.getChildren().add(hBox);
+        vBox.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(vBox, 600, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
-        String[] arrajek = new String[]{"f", "b", "r", "l", "f", "f" ,"r", "r" ,"f" ,"f" ,"f" ,"f" ,"f", "f", "f", "f"};
         try {
-            Parameters parameters = getParameters();
-            List<String> argsTemp = parameters.getRaw();
-            String[] args = argsTemp.toArray(new String[0]);
-            MoveDirection[] directions = new OptionsParser().parse(arrajek);
             this.map = new GrassField(10);
             Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4)};
-            SimulationEngine engine = new SimulationEngine(directions, this.map, positions,this);
+            SimulationEngine engine = new SimulationEngine(this.map, positions,this);
             engine.setDelay(moveDelay);
-            Thread engineThread = new Thread(engine);
-            Thread.sleep(1000);
-            engineThread.start();
+            Thread firstThread = new Thread(engine);
+            firstThread.start();
+            btn.setOnAction((e)->{
+                Thread engineThread = new Thread(engine);
+                String textFieldText = textField.getText();
+                String[] args = textFieldText.split(" ");
+                MoveDirection[] directions = new OptionsParser().parse(args);
+                engine.setMoves(directions);
+                engineThread.start();
+            });
         } catch(IllegalArgumentException ex) {
             System.out.println("Error: " +ex.getMessage());
             throw new Exception("Error: " +ex.getMessage());
