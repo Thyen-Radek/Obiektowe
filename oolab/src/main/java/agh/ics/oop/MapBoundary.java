@@ -35,6 +35,7 @@ public class MapBoundary implements IPositionChangeObserver{
     }
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-
+        X_el.sort(xComparator);
+        Y_el.sort(yComparator);
     }
 }

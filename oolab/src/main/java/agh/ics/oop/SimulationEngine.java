@@ -17,6 +17,7 @@ public class SimulationEngine implements IEngine,Runnable {
         for (Vector2d position : positions) {
             Animal animal = new Animal(this.map_animals, position);
             animal.addObserver(map_animals);
+            animal.addObserver(this.map_animals.getBound());
             if (renderer != null){
                 animal.addObserver(renderer);
             }
@@ -29,6 +30,7 @@ public class SimulationEngine implements IEngine,Runnable {
         this.map_animals = map_animals;
         for (Vector2d position : positions) {
             Animal animal = new Animal(this.map_animals, position);
+            animal.addObserver(this.map_animals.getBound());
             animal.addObserver(map_animals);
             if (renderer != null){
                 animal.addObserver(renderer);
