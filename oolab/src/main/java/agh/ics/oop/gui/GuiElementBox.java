@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class GuiElementBox {
     IMapElement ElementBox;
@@ -24,11 +25,15 @@ public class GuiElementBox {
         String name = this.ElementBox.getName();
         ImageView imageView = null;
         try {
-            Image image = new Image(new FileInputStream("src/main/resources/" + name + ".png"));
+            InputStream stream = getClass().getResourceAsStream("/" + name + ".png");
+            if (stream == null)
+                throw new FileNotFoundException("/" + name + ".png");
+            Image image = new Image(stream);
             imageView = new ImageView(image);
             imageView.setFitWidth(20);
             imageView.setFitHeight(20);
         } catch (FileNotFoundException ex){
+            System.out.println(getClass());
             System.out.println("Error: File not Found! " + ex.getMessage());
         }
         Label label;
